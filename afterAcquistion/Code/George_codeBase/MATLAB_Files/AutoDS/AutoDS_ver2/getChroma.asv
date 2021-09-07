@@ -1,0 +1,64 @@
+function C = getChroma(dirSink)
+Cam = {'CamA','CamB'};
+Chan = {'405','488','560','592','642'};
+C.chan = cell(length(Cam), length(Chan));
+C.doChroma = true;
+
+keyword = 'chroma';
+C_dir = findKeywordDFS(dirSink, keyword);
+counter = 1;
+
+getC = true;
+while isempty(C_dir)
+    % choose a file for chromatic offset
+    fprintf('dirSource: %s,\nkeyword: %s\n not found. Select the folder of interest\n', dirSink, keyword)
+    
+    C_dir = uigetdir(dirSink);
+    if ~C_dir
+        disp('No Chromatic Offset folders selected. Select again.\nOtherwise you can do this later by hand');
+    end
+    counter = counter + 1;
+    if counter > 3
+        C.doChroma = false;
+        break;
+    end
+end
+
+
+
+
+%%%%%%% chromatic offset dir is found, check if deskew is needed
+if C.doChroma
+    % get the Ex folders in C_dir
+    Ex_folders = findKeywordDFS(char(C_dir{1}), 'Ex');
+    
+    % check that they are 3D sample scan
+    check3Dacquisition(Ex_folders)
+    
+    % Add/edit s-plane info if you missed
+    add_splane_FolName2(Ex_folders)
+    
+    % get the Ex directories
+    Ex_folders = findKeywordDFS(char(C_dir{1}), 'Ex');
+    
+    % add channels
+    addChannels(Ex_folders)
+
+    % for each folder, run deskew
+    for ii = 1:length(Ex_folders)
+        Ex_folder = char(Ex_folders{ii});
+        
+        
+        
+    end
+    
+
+    
+    
+end
+    
+    
+    
+end
+
+
