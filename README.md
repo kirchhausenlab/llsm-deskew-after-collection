@@ -15,6 +15,6 @@ Lines 1-30 are commented, and are used to calculate the shift, using as input th
 
 Lines 32-54 allow to apply the shift to all images in thefolder, and save the un-shifted files in a in a different folder. One needs to input the folder *Ex* to be corrected (translated by dx and dy). For this procedure one needs to run the script as a funcion.
 
-### 4. Apply chromatic offset, flat field correction and deskew
+## Apply chromatic offset, flat field correction and deskew
 
 Run `currentDeskew_20210622.m`, inserting the experiment number manually.
